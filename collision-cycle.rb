@@ -5,7 +5,6 @@ $indeks = [0x41,0x60,0x84].pack("C*")
 def renMD5(val)
     OpenSSL::Digest::MD5.digest(OpenSSL::Digest::MD5.digest($indeks + val)).bytes.take(7).pack("C*")
 end
-iteration = 0
 while true
     initial = SecureRandom.hex
     puts "initial value: #{initial}"
@@ -33,10 +32,9 @@ while true
     puts "Collision found for #{input1.bytes} and #{input2.bytes}"
     puts "MD5 for #{input1} is #{renMD5($indeks + tortoise_last)}"
     puts "MD5 for #{input2} is #{renMD5($indeks + hare_last)}"
-    File.open('collision_'+iteration.to_s, 'w') do |f|
+    File.open(initial, 'w') do |f|
         f << input1
         f << "\n"
         f << input2
     end
-    iteration+=1
 end
