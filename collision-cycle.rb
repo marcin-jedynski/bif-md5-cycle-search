@@ -21,15 +21,18 @@ while true
     tortoise = initial
     tortoise_last = 0
     hare_last = 0
+    counter = 0
     while tortoise != hare
+        if counter % 2000000 == 0 then puts counter end
         tortoise_last = tortoise
         hare_last = hare
         tortoise = renMD5(tortoise)
         hare = renMD5(hare)
+        counter+=1
     end
     input1 = ($indeks + tortoise_last).bytes.map{|b| b.to_s(16)}.join()
     input2 = ($indeks + hare_last).bytes.map{|b| b.to_s(16)}.join()
-    puts "Collision found for #{input1.bytes} and #{input2.bytes}"
+    puts "Collision found for #{input1} and #{input2}"
     puts "MD5 for #{input1} is #{renMD5($indeks + tortoise_last)}"
     puts "MD5 for #{input2} is #{renMD5($indeks + hare_last)}"
     File.open(initial, 'w') do |f|
