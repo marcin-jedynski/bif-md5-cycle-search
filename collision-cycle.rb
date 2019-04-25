@@ -18,7 +18,7 @@ while true
         counter+=1
     end
     puts "cycle found, starting second phase"
-    tortoise = renMD5(initial)
+    tortoise = initial
     tortoise_last = 0
     hare_last = 0
     while tortoise != hare
